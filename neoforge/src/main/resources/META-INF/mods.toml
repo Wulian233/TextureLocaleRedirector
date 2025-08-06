@@ -1,0 +1,25 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+issueTrackerURL = "https://github.com/Wulian233/TextureLocaleRedirector/issues"
+license = "MIT"
+
+[[mods]]
+modId = "texturelocaleredirector"
+version = "${version}"
+displayName = "Texture Locale Redirector"
+displayURL = "https://github.com/Wulian233/TextureLocaleRedirector"
+authors = "Wulian233"
+description = '''
+Support redirecting resource paths based on the game language to achieve multi-language texture loading.
+'''
+logoFile = "assets/texturelocaleredirector/icon.png"
+
+[[mixins]]
+config = "texturelocaleredirector.mixins.json"
+
+[[dependencies.texturelocaleredirector]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.20.1,1.20.5)"
+ordering = "NONE"
+side = "BOTH"

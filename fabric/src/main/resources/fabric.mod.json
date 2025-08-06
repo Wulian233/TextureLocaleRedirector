@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "texturelocaleredirector",
+  "version": "${version}",
+  "name": "Texture Locale Redirector",
+  "description": "Support redirecting resource paths based on the game language to achieve multi-language texture loading.",
+  "authors": [
+    "Wulian233"
+  ],
+  "contact": {
+    "sources": "https://github.com/Wulian233/TextureLocaleRedirector",
+    "issues": "https://github.com/Wulian233/TextureLocaleRedirector/issues"
+  },
+  "icon": "assets/texturelocaleredirector/icon.png",
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.wulian.texturelocaleredirector.fabric.TextureLocaleRedirectorClientFabric"
+    ]
+  },
+  "mixins": [
+    "texturelocaleredirector.mixins.json"
+  ],
+  "depends": {
+    "fabric": "*",
+    "minecraft": ">=1.16"
+  }
+}

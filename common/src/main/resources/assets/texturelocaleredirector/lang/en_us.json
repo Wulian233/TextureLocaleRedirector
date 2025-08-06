@@ -1,0 +1,4 @@
+{
+  "fml.menu.mods.info.description.texturelocaleredirector": "Support redirecting resource paths based on the game language to achieve multi-language texture loading",
+  "modmenu.descriptionTranslation.texturelocaleredirector": "Support redirecting resource paths based on the game language to achieve multi-language texture loading"
+}
