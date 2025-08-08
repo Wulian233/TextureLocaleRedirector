@@ -1,7 +1,7 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "dev.architectury.loom" version "1.10-SNAPSHOT" apply false
-    id "com.gradleup.shadow" version "8.+" apply false
+    id "com.gradleup.shadow" version "9.+" apply false
     id "com.hypherionmc.modutils.modfusioner" version "1.+"
 }
 
@@ -27,7 +27,7 @@ allprojects {
     apply plugin: "architectury-plugin"
 
     archivesBaseName = rootProject.archives_base_name
-    version = "${rootProject.mod_version}+mc${rootProject.minecraft_version}"
+    version = "${rootProject.mod_version}"
     group = rootProject.maven_group
 
     tasks.withType(JavaCompile).configureEach {

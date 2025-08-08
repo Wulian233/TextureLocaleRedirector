@@ -1,11 +1,9 @@
 package com.wulian.texturelocaleredirector;
 
-
 import net.minecraft.util.Identifier;
 
 public class LanguageTextureManager {
     private static final String TEXTURES_PREFIX = "textures/";
-    private static final int TEXTURES_PREFIX_LENGTH = TEXTURES_PREFIX.length();
 
     private static final ThreadLocal<Boolean> IS_REPLACING_ATLAS_TEXTURES = ThreadLocal.withInitial(() -> false);
 
@@ -18,19 +16,13 @@ public class LanguageTextureManager {
     }
 
     public static Identifier getLanguageSpecificIdForAtlas(Identifier originalId, String currentLang) {
-        if ("en_us".equals(currentLang)) {
+        if ("en_us".equals(currentLang) || !originalId.getPath().startsWith(TEXTURES_PREFIX)) {
             return null;
         }
 
-        String path = originalId.getPath();
-        if (path.startsWith(TEXTURES_PREFIX)) {
-            return createLanguageSpecificId(originalId, currentLang, path);
-        }
-        return null;
-    }
+        String originalPath = originalId.getPath();
+        String langSpecificPath = TEXTURES_PREFIX + currentLang + "/" + originalPath.substring(TEXTURES_PREFIX.length());
 
-    private static Identifier createLanguageSpecificId(Identifier original, String language, String path) {
-        String langSpecificPath = TEXTURES_PREFIX + language + "/" + path.substring(TEXTURES_PREFIX_LENGTH);
-        return Identifier.of(original.getNamespace(), langSpecificPath);
+        return Identifier.of(originalId.getNamespace(), langSpecificPath);
     }
 }
