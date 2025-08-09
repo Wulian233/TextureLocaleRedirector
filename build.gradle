@@ -46,13 +46,18 @@ fusioner {
     outputDirectory = "build/merged"
     jarVersion = rootProject.version
 
-    neoforge {
-        projectName = "neoforge"
+    fabric {
+        projectName = "fabric"
         inputTaskName = "remapJar"
     }
 
-    fabric {
-        projectName = "fabric"
+    forge {
+        projectName = "forge"
+        inputTaskName = "remapJar"
+    }
+
+    neoforge {
+        projectName = "neoforge"
         inputTaskName = "remapJar"
     }
 }

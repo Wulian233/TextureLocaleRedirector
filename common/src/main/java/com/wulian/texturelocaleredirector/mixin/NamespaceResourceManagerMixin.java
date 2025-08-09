@@ -1,6 +1,7 @@
 package com.wulian.texturelocaleredirector.mixin;
 
 import com.wulian.texturelocaleredirector.LangTextureCache;
+import com.wulian.texturelocaleredirector.TextureLocaleRedirector;
 import net.minecraft.resource.NamespaceResourceManager;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
@@ -21,6 +22,7 @@ public abstract class NamespaceResourceManagerMixin {
     @Inject(method = "findResources", at = @At("RETURN"))
     private void onFindResources(String startingPath, Predicate<Identifier> allowedPathPredicate,
                                  CallbackInfoReturnable<Map<Identifier, Resource>> cir) {
+
         String currentLang = LangTextureCache.getCurrentLanguage();
 
         if ("en_us".equals(currentLang) || !startingPath.startsWith("textures/")) {
@@ -36,18 +38,22 @@ public abstract class NamespaceResourceManagerMixin {
 
         for (Map.Entry<Identifier, Resource> entry : originalResources.entrySet()) {
             Identifier originalId = entry.getKey();
-            if (originalId.getPath().endsWith(".mcmeta")) continue;
-            if (!allowedPathPredicate.test(originalId)) continue;
+
+            if (originalId.getPath().endsWith(".mcmeta") || !allowedPathPredicate.test(originalId)) {
+                continue;
+            }
 
             String langSpecificPath = texturePrefix + currentLang + '/' + originalId.getPath().substring(prefixLength);
             Identifier langId = IdentifierAccessor.create(originalId.getNamespace(), langSpecificPath);
 
-            Boolean exists = LangTextureCache.get(langId);
-            if (exists != null) {
-                if (exists) {
+            Boolean cache = LangTextureCache.get(langId);
+            if (cache != null) {
+                if (cache) {
                     try {
-                        Optional<Resource> langResource = ((ResourceManager) this).getResource(langId);
-                        langResource.ifPresent(resource -> langSpecificResources.put(originalId, resource));
+                        ((ResourceManager) this).getResource(langId).ifPresent(resource -> {
+                            langSpecificResources.put(originalId, resource);
+                            TextureLocaleRedirector.LOGGER.info("Using cached localized texture: {}", langId);
+                        });
                     } catch (Exception ignored) {}
                 }
                 continue;
@@ -58,11 +64,13 @@ public abstract class NamespaceResourceManagerMixin {
                 if (langResource.isPresent()) {
                     langSpecificResources.put(originalId, langResource.get());
                     LangTextureCache.put(langId, true);
+                    TextureLocaleRedirector.LOGGER.info("Found and cached localized texture: {}", langId);
                 } else {
                     LangTextureCache.put(langId, false);
                 }
             } catch (Exception e) {
                 LangTextureCache.put(langId, false);
+                TextureLocaleRedirector.LOGGER.warn("Failed to load localized texture: {}", langId, e);
             }
         }
 

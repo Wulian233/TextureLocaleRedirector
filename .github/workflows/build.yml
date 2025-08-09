@@ -40,6 +40,12 @@ jobs:
           name: fabric-artifacts
           path: ${{ github.workspace }}/fabric/build/libs
 
+      - name: Upload forge artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: forge-artifacts
+          path: ${{ github.workspace }}/forge/build/libs
+
       - name: Upload neoforge artifacts
         uses: actions/upload-artifact@v4
         with:
