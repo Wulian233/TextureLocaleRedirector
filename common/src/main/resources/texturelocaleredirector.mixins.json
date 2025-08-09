@@ -8,6 +8,8 @@
   },
   "client": [
     "IdentifierAccessor",
-    "NamespaceResourceManagerMixin"
+    "LanguageManagerMixin",
+    "NamespaceResourceManagerMixin",
+    "ReloadableResourceManagerImplMixin"
   ]
 }
