@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[49,)"
+loaderVersion = "[38,)"
 issueTrackerURL = "https://github.com/Wulian233/TextureLocaleRedirector/issues"
 license = "MIT"
 
@@ -20,6 +20,6 @@ config = "texturelocaleredirector.mixins.json"
 [[dependencies.texturelocaleredirector]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.20.5,)"
+versionRange = "[1.20,1.20.5)"
 ordering = "NONE"
 side = "BOTH"
