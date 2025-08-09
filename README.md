@@ -2,6 +2,8 @@
    <img height="128px" width="128px" alt="logo" src="./icon/icon.png"/> 
    <h1>Texture Locale Redirector</h1>
 
+<a href="README_CN.md">中文</a> | English
+
 <a href="https://modrinth.com/project/texture-locale-redirector">
 <img alt="modrinth" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg">
 </a>
@@ -14,55 +16,56 @@
 <img alt="fabric" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/fabric_vector.svg">
 </div>
 
-Texture Locale Redirector 为 Minecraft 资源包提供了原生的多语言纹理支持。
+**Texture Locale Redirector** adds native multi-language texture support to Minecraft resource packs.  
 
-它通过扩展原版的资源加载机制，让你可以在一个资源包中为不同语言提供专门的纹理。
-这解决了本地化过程中，因纹理上的文字或图标需要替换而影响其他语言玩家体验的问题。
+By extending vanilla resource loading mechanism, this mod allows you to provide language-specific textures within a single resource pack.  
+It solves the problem where localized textures (with text or symbols) for one language may negatively affect players in other languages.
 
-## 使用说明
+## Usage
 
-只需简单三步，即可让你的资源包支持多语言纹理：
+Follow these three simple steps to enable multi-language textures:
 
-1.  **安装模组**：将本模组放入你的 `mods` 文件夹。
-2.  **创建资源包**：在资源包中，按照特定的文件夹结构组织你的本地化纹理。
-3.  **开始游戏**：在游戏中启用资源包并切换到对应语言即可。
+1. **Install the mod**: Place this mod in your `mods` folder.  
+2. **Create a resource pack**: Organize your localized textures according to the required folder structure.  
+3. **Start the game**: Enable the resource pack and switch to the corresponding language in Minecraft.  
 
-## 资源包结构示例
+## Resource Pack Structure Example
 
-在你的资源包中，按照 `assets/<namespace>/textures/<language>/` 的结构来存放本地化纹理。
+Inside your resource pack, store localized textures under `assets/<namespace>/textures/<language>/`.
 
-`<namespace>` 是命名空间，原版为 `minecraft`，模组一般为它们的 modid。
+- `<namespace>` is the namespace — `minecraft` for vanilla, or the modid for mods.  
+- `<language>` is the language code, such as `zh_cn` (Simplified Chinese) or `ja_jp` (Japanese).  
 
-`<language>` 是语言代码，如 `zh_cn`（简体中文）或 `ja_jp`（日文）。
-
-注意：需要替换的纹理的相对路径需与原纹理保持一致。
+**Note:** The relative path of the texture to be replaced must match the original texture path.
 
 ```
-资源包名称/
+ResourcePackName/
 └── assets/
-    └── minecraft（命名空间）/
+    └── minecraft (namespace)/
         └── textures/
-            ├── zh_cn/          # 简体中文纹理
+            ├── zh_cn/          # Simplified Chinese textures
             │   ├── block/
-            │   │   └── dirt.png  # 替换的泥土纹理
+            │   │   └── dirt.png  # Replaced dirt texture
             │   └── item/
-            │       └── diamond_sword.png  # 替换的钻石剑纹理
-            └── ja_jp/          # 日文纹理
+            │       └── diamond_sword.png  # Replaced diamond sword texture
+            └── ja_jp/          # Japanese textures
                 └── item/
-                    └── diamond_sword.png  # 替换的钻石剑纹理
+                    └── diamond_sword.png  # Replaced diamond sword texture
 ```
 
-## 性能
+## Performance
 
-本模组进行了大量的优化，对性能不应造成明显影响
+This mod is heavily optimized and should have negligible performance impact:
 
-* 模组只在非 `en_us` 环境下工作，对英语玩家没有任何影响。
-* 本模组为需要替换的纹理建立了**先进的缓存机制**，极大地减少了不必要的磁盘读写操作。
-* 在语言切换和游戏资源重载时会清空缓存，立即更新纹理。内存不足时会智能释放缓存，保证游戏正常运行。
-* 如果资源包没有定义特定语言纹理文件夹，则不会扫描替换以减少性能影响。且不会影响其他任何资源包的正常工作。
+* Works **only** when the current language is not `en_us`, meaning no effect for English players.  
+* Implements an **advanced caching system** to drastically reduce unnecessary disk I/O.  
+* Clears cache upon language change or resource reload, ensuring textures are updated immediately.  
+* Automatically releases cache memory when system memory is low to prevent lag.  
+* If a resource pack has no language-specific texture folder, no replacement scan is performed — avoiding unnecessary work.  
+* Does not interfere with the normal operation of other resource packs.
 
-## 许可证
+## License
 
-本项目采用 [MIT 许可证](LICENSE) 开源。
+This project is open-sourced under the [MIT License](LICENSE).  
 
-欢迎提交 Issue 反馈问题或提出建议，欢迎贡献 PR 。
+Contributions and PRs are welcome! Feel free to submit issues for bug reports or feature requests.
