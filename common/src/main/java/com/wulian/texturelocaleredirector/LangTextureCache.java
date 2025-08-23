@@ -1,6 +1,7 @@
 package com.wulian.texturelocaleredirector;
 
 import net.minecraft.util.Identifier;
+
 import java.lang.ref.SoftReference;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

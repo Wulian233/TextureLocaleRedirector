@@ -1,6 +1,7 @@
 {
   "required": true,
   "package": "com.wulian.texturelocaleredirector.mixin",
+  "plugin": "com.wulian.texturelocaleredirector.mixin.ftbquests.FTBQMixinPlugin",
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
   "injectors": {
@@ -10,5 +11,8 @@
     "LanguageManagerMixin",
     "NamespaceResourceManagerMixin",
     "ReloadableResourceManagerImplMixin"
+  ],
+  "mixins": [
+    "ftbquests.ChapterImageMixin"
   ]
 }
