@@ -3,7 +3,7 @@
   "id": "texturelocaleredirector",
   "version": "${version}",
   "name": "Texture Locale Redirector",
-  "description": "Support redirecting resource paths based on the game language to achieve multi-language texture loading.By extending the vanilla resource loading mechanism, it provides native multi-language texture support for resource packs, enabling localization of texture assets.",
+  "description": "Support redirecting resource paths based on the game language to achieve multi-language texture loading. By extending the vanilla resource loading mechanism, it provides native multi-language texture support for resource packs, enabling localization of texture assets.",
   "authors": [
     "Wulian233"
   ],

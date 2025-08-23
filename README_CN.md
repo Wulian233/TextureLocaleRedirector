@@ -54,6 +54,15 @@ Texture Locale Redirector 为 Minecraft 资源包提供了原生的多语言纹�
                     └── diamond_sword.png  # 替换的钻石剑纹理
 ```
 
+## FTB Quests 支持
+
+本模组同时对 [FTB Quests](https://github.com/FTBTeam/FTB-Quests) 提供了可选支持。  
+当 FTB Quests 存在时，任务界面中的图片（`ChapterImage`）同样会根据当前语言切换到对应的本地化纹理。
+
+* 任务中使用到的所有的图片和图标都可以在资源包中指定替换
+* 如果未找到对应语言的贴图，则会回退到默认的贴图
+* 通过 **Mixin 插件**实现，模组本体不会强制依赖 FTB Quests
+
 ## 性能
 
 本模组进行了大量的优化，对性能不应造成明显影响
@@ -67,4 +76,4 @@ Texture Locale Redirector 为 Minecraft 资源包提供了原生的多语言纹�
 
 本项目采用 [MIT 许可证](LICENSE) 开源。
 
-欢迎提交 Issue 反馈问题或提出建议，欢迎贡献 PR 。翻译英语。添加语言切换的文字|竖线
+欢迎提交 Issue 反馈问题或提出建议，欢迎贡献 PR 。
