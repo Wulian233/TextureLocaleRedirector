@@ -23,21 +23,26 @@ public abstract class ChapterImageMixin {
             return image;
         }
 
-        String path = image.toString();
-        int idx = path.indexOf("textures/");
-        if (idx != -1) {
-            String before = path.substring(0, idx + 9); // 包含 "textures/"
-            String after = path.substring(idx + 9);
-            String localizedPath = before + currentLang + "/" + after;
+        String originalPath = image.toString();
+        String texturePrefix = "textures/";
+        String textureInsert = currentLang + "/";
+
+        if (originalPath.contains(texturePrefix + currentLang)) {
+            TextureLocaleRedirector.LOGGER.warn("{} already exists in {} path.", currentLang, originalPath);
+            TextureLocaleRedirector.LOGGER.info("ChapterImage icon {}", originalPath);
+            return image;
+        } else {
+            int index = originalPath.indexOf(texturePrefix) + texturePrefix.length();
+            String localizedPath = originalPath.substring(0, index) + textureInsert + originalPath.substring(index);
 
             Icon localizedIcon = Icon.getIcon(localizedPath);
 
             if (!localizedIcon.isEmpty()) {
-                TextureLocaleRedirector.LOGGER.info("Redirected ChapterImage icon {} -> {}", path, localizedPath);
+                TextureLocaleRedirector.LOGGER.info("Redirected ChapterImage icon {} -> {}", originalPath, localizedPath);
                 return localizedIcon;
+            } else {
+                return Icon.getIcon(originalPath.substring(0, index) + originalPath.substring(index));
             }
         }
-
-        return image;
     }
 }

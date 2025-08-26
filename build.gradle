@@ -1,6 +1,6 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "1.10-SNAPSHOT" apply false
+    id "dev.architectury.loom" version "1.11-SNAPSHOT" apply false
     id "com.gradleup.shadow" version "9.+" apply false
 }
 
@@ -27,6 +27,10 @@ allprojects {
     archivesBaseName = rootProject.archives_base_name
     version = "${rootProject.mod_version}"
     group = rootProject.maven_group
+
+    repositories {
+        maven { url "https://maven.ftb.dev/releases" }
+    }
 
     tasks.withType(JavaCompile).configureEach {
         options.encoding = "UTF-8"

@@ -1,4 +1,4 @@
-package com.wulian.texturelocaleredirector.mixin.ftbquests;
+package com.wulian.texturelocaleredirector;
 
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import java.util.List;
 import java.util.Set;
 
-public class FTBQMixinPlugin implements IMixinConfigPlugin {
+public class TLRMixinPlugin implements IMixinConfigPlugin {
     @Override
     public void onLoad(String mixinPackage) {
     }
