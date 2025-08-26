@@ -44,7 +44,7 @@ public abstract class NamespaceResourceManagerMixin {
             }
 
             String langSpecificPath = texturePrefix + currentLang + '/' + originalId.getPath().substring(prefixLength);
-            Identifier langId = IdentifierAccessor.create(originalId.getNamespace(), langSpecificPath);
+            Identifier langId = Identifier.of(originalId.getNamespace(), langSpecificPath);
 
             Boolean cache = LangTextureCache.get(langId);
             if (cache != null) {
