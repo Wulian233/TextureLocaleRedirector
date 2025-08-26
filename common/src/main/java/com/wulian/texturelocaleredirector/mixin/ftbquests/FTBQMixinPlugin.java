@@ -20,12 +20,8 @@ public class FTBQMixinPlugin implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         if (mixinClassName.endsWith("ChapterImageMixin")) {
-            try {
-                Class.forName("dev.ftb.mods.ftbquests.quest.ChapterImage");
-                return true;
-            } catch (ClassNotFoundException e) {
-                return false;
-            }
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            return classLoader.getResource("dev/ftb/mods/ftbquests/quest/ChapterImage.class") != null;
         }
         return true;
     }
