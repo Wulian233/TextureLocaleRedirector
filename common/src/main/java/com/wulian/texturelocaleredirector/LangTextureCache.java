@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class LangTextureCache {
 
     private static final Map<Identifier, SoftReference<Boolean>> existsCache = new ConcurrentHashMap<>();
-    private static volatile String currentLanguage = "en_us"; // 默认
+    private static volatile String currentLanguage = "en_us";
 
     public static Boolean get(Identifier id) {
         SoftReference<Boolean> ref = existsCache.get(id);
