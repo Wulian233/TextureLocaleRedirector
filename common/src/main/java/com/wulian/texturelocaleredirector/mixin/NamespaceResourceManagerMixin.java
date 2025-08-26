@@ -24,8 +24,7 @@ public abstract class NamespaceResourceManagerMixin {
                                  CallbackInfoReturnable<Map<Identifier, Resource>> cir) {
 
         String currentLang = LangTextureCache.getCurrentLanguage();
-
-        if ("en_us".equals(currentLang) || !startingPath.startsWith("textures/")) {
+        if ("en_us".equals(currentLang)) {
             return;
         }
 
@@ -33,17 +32,30 @@ public abstract class NamespaceResourceManagerMixin {
         if (originalResources.isEmpty()) return;
 
         Map<Identifier, Resource> langSpecificResources = new HashMap<>();
-        String texturePrefix = "textures/";
-        int prefixLength = texturePrefix.length();
+        String textureKey = "textures/";
 
         for (Map.Entry<Identifier, Resource> entry : originalResources.entrySet()) {
             Identifier originalId = entry.getKey();
 
-            if (originalId.getPath().endsWith(".mcmeta") || !allowedPathPredicate.test(originalId)) {
+            if (!allowedPathPredicate.test(originalId)) {
                 continue;
             }
 
-            String langSpecificPath = texturePrefix + currentLang + '/' + originalId.getPath().substring(prefixLength);
+            String path = originalId.getPath();
+            int idx = path.indexOf(textureKey);
+            if (idx == -1) {
+                continue; // 跳过不含 textures/ 的路径
+            }
+
+            String before = path.substring(0, idx + textureKey.length());
+            String after = path.substring(idx + textureKey.length());
+
+            // 避免重复，如zh_cn/zh_cn
+            if (after.startsWith(currentLang + "/")) {
+                continue;
+            }
+
+            String langSpecificPath = before + currentLang + '/' + after;
             Identifier langId = new Identifier(originalId.getNamespace(), langSpecificPath);
 
             Boolean cache = LangTextureCache.get(langId);
@@ -74,7 +86,6 @@ public abstract class NamespaceResourceManagerMixin {
             }
         }
 
-        //noinspection ConstantConditions
         if (!langSpecificResources.isEmpty()) {
             originalResources.putAll(langSpecificResources);
         }

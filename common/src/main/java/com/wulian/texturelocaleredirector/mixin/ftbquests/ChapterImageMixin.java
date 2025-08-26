@@ -18,13 +18,18 @@ public abstract class ChapterImageMixin {
     )
     private Icon injectLocalizedImage(Icon image) {
         String currentLang = LangTextureCache.getCurrentLanguage();
-        if ("en_us".equals(currentLang)) {
+
+        if ("en_us".equals(currentLang) || image == null) {
             return image;
         }
 
         String path = image.toString();
-        if (path.startsWith("textures/")) {
-            String localizedPath = "textures/" + currentLang + "/" + path.substring(9);
+        int idx = path.indexOf("textures/");
+        if (idx != -1) {
+            String before = path.substring(0, idx + 9); // 包含 "textures/"
+            String after = path.substring(idx + 9);
+            String localizedPath = before + currentLang + "/" + after;
+
             Icon localizedIcon = Icon.getIcon(localizedPath);
 
             if (!localizedIcon.isEmpty()) {
