@@ -1,13 +1,13 @@
-package com.wulian.texturelocaleredirector.mixin.ftbquests;
+package com.wulian.texturelocaleredirector;
 
+import me.fallenbreath.conditionalmixin.api.mixin.RestrictiveMixinConfigPlugin;
 import org.objectweb.asm.tree.ClassNode;
-import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 import java.util.List;
 import java.util.Set;
 
-public class FTBQMixinPlugin implements IMixinConfigPlugin {
+public class TLRMixinPlugin extends RestrictiveMixinConfigPlugin {
     @Override
     public void onLoad(String mixinPackage) {
     }
@@ -19,10 +19,6 @@ public class FTBQMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        if (mixinClassName.endsWith("ChapterImageMixin")) {
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            return classLoader.getResource("dev/ftb/mods/ftbquests/quest/ChapterImage.class") != null;
-        }
         return true;
     }
 

@@ -1,7 +1,7 @@
 {
   "required": true,
   "package": "com.wulian.texturelocaleredirector.mixin",
-  "plugin": "com.wulian.texturelocaleredirector.mixin.ftbquests.FTBQMixinPlugin",
+  "plugin": "com.wulian.texturelocaleredirector.TLRMixinPlugin",
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "injectors": {

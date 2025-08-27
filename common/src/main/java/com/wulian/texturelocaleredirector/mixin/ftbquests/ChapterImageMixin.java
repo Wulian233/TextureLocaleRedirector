@@ -4,10 +4,13 @@ import com.wulian.texturelocaleredirector.LangTextureCache;
 import com.wulian.texturelocaleredirector.TextureLocaleRedirector;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftbquests.quest.ChapterImage;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
+@Restriction(require = @Condition("ftbquests"))
 @Mixin(value = ChapterImage.class, remap = false)
 public abstract class ChapterImageMixin {
 
@@ -18,21 +21,31 @@ public abstract class ChapterImageMixin {
     )
     private Icon injectLocalizedImage(Icon image) {
         String currentLang = LangTextureCache.getCurrentLanguage();
-        if ("en_us".equals(currentLang)) {
+
+        if ("en_us".equals(currentLang) || image == null) {
             return image;
         }
 
-        String path = image.toString();
-        if (path.startsWith("textures/")) {
-            String localizedPath = "textures/" + currentLang + "/" + path.substring(9);
+        String originalPath = image.toString();
+        String texturePrefix = "textures/";
+        String textureInsert = currentLang + "/";
+
+        if (originalPath.contains(texturePrefix + currentLang)) {
+            TextureLocaleRedirector.LOGGER.warn("{} already exists in {} path.", currentLang, originalPath);
+            TextureLocaleRedirector.LOGGER.info("ChapterImage icon {}", originalPath);
+            return image;
+        } else {
+            int index = originalPath.indexOf(texturePrefix) + texturePrefix.length();
+            String localizedPath = originalPath.substring(0, index) + textureInsert + originalPath.substring(index);
+
             Icon localizedIcon = Icon.getIcon(localizedPath);
 
             if (!localizedIcon.isEmpty()) {
-                TextureLocaleRedirector.LOGGER.info("Redirected ChapterImage icon {} -> {}", path, localizedPath);
+                TextureLocaleRedirector.LOGGER.info("Redirected ChapterImage icon {} -> {}", originalPath, localizedPath);
                 return localizedIcon;
+            } else {
+                return Icon.getIcon(originalPath.substring(0, index) + originalPath.substring(index));
             }
         }
-
-        return image;
     }
 }
